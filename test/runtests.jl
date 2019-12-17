@@ -1,6 +1,6 @@
-using XRFast2
+using XRFast
 using Test
 
-@testset "XRFast2.jl" begin
+@testset "XRFast.jl" begin
     # Write your own tests here.
 end
