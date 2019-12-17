@@ -1,4 +1,4 @@
-# XRFast2
+# XRFast
 
 [![Build Status](https://travis-ci.com/NU-ACCESS/XRFast2.jl.svg?branch=master)](https://travis-ci.com/NU-ACCESS/XRFast2.jl)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/NU-ACCESS/XRFast2.jl?svg=true)](https://ci.appveyor.com/project/NU-ACCESS/XRFast2-jl)
