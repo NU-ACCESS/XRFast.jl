@@ -1,14 +1,13 @@
 module XRFast
 
-using DelimitedFiles 
+export nnls, subX, lasso, lasso_sparse, approximate_ksvd, dictionary_learning, dictionary_learning_1, LLS, INV_LLS, Savitsky_Golay, SNIP, initial_dictionary, approx_nn_dictionary_learning, full_nn_dictionary_learning
+ 
 using Lasso
 using LinearAlgebra
 using DSP
-using Plots
-using DataStructures
 using ProgressMeter
-using Base.Threads, SparseArrays
-using Profile
+using SparseArrays
+using NonNegLeastSquares
 
 #subX function randomly selects 5% of spectra from original data cube and saves as a new array
 #Spectral dimensions in y (dim 1), pixels in x (dim 2)
@@ -18,6 +17,25 @@ function subX(a)
     percent = trunc(Int64, (size(a,1))*0.05) #select 5% of pixels to form 
     subX =zeros(0) #empty array
     for i in 1:percent #loop to create array of randomly selected pixels. Stored in an array called subX
+        n = size(a,1)
+        idx = rand(1:n)
+        append!(subX,a[idx,:])
+    end
+    return reshape(subX,channels,percent)
+end
+
+function initial_dictionary(a;
+    Atoms::Int = default_Atoms)
+ 
+    default_Atoms = 40
+ 
+    channels = size(a,2)
+    pixels = size(a,1)
+    Prc = Atoms/pixels
+
+    percent = trunc(Int64, (size(a,1))*Prc)  
+    subX =zeros(0) #empty array
+    for i in 1:percent 
         n = size(a,1)
         idx = rand(1:n)
         append!(subX,a[idx,:])
@@ -40,6 +58,21 @@ function lasso_sparse(subx, D, Threshold)
     return T
 end
 
+function lasso(subx, D, cd_tolerance)
+
+    #p = size(subx,2) # numb of pixels in image
+    w = zeros(0)
+    for i in 1:size(subx,2)
+        q = subx[:,i]
+        W = fit(LassoPath, D, q;intercept=false, cd_tol=cd_tolerance)
+        J = Matrix(coef(W))
+        append!(w,J[:,size(J,2)])
+    end
+    W = reshape(w,size(D,2),size(subx,2))
+    return W
+end
+
+
 function approximate_ksvd(Y::AbstractMatrix, D::AbstractMatrix, W::AbstractMatrix)
     R = Y - D*W
     for k in 1:size(D,2)
@@ -53,6 +86,52 @@ function approximate_ksvd(Y::AbstractMatrix, D::AbstractMatrix, W::AbstractMatri
     end
     return D
 end
+
+
+
+function nn_approximate_ksvd(Y::AbstractMatrix, D::AbstractMatrix, W::AbstractMatrix)
+    R = Y - D*W
+    for k in 1:size(D,2)
+        I = findall( x->(x > 0), W[k,:])
+	    #R[:,I] = [x > 0 ? x : 0 for x in R[:,I]]
+        Ri = R[:,I] + D[:,k]*W[k,I']
+        dk = Ri * W[k,I]
+        dk = dk/sqrt(dk'*dk)  # normalize
+	    @. dk[isnan(dk)] = 0
+        D[:,k] = dk
+        D[:,k] = [x > 0 ? x : 0 for x in D[:,k]]
+	    W[k,I] = D[:,k]'*Ri;
+        R[:,I] = Ri - D[:,k]*W[k,I']
+    end
+    return D
+end
+
+function nn_full_ksvd(Y::AbstractMatrix, D::AbstractMatrix, W::AbstractMatrix)
+    R = Y - D*W
+    for k in 1:size(D,2)
+        I = findall( x->(x > 0), W[k,:])
+        Ri = R[:,I] + D[:,k]*W[k,I']
+        U,S,V = svd(Ri)
+        #@. U[isnan(U)] = 0
+        D[:,k] = U[:,1]
+        D[:,k] = [x > 0 ? x : 0 for x in D[:,k]]
+        W[k,I] = V'*S
+        R[:,I] = Ri - D[:,k]*W[k,I']
+    end
+    return D
+end
+
+function nnls(subx, D)
+    w = zeros(0)
+    for i in 1:size(subx,2)
+        q = subx[:,i]
+        J = nonneg_lsq(D,subx[:,i];alg=:nnls)
+        append!(w,J[:,size(J,2)])
+    end
+    W = reshape(w,size(D,2),size(subx,2))
+    return W
+end
+
 
 function dictionary_learning(D::AbstractMatrix, L::AbstractMatrix; 
         noIt_Sub::Int = default_It_Sub, 
@@ -69,6 +148,67 @@ function dictionary_learning(D::AbstractMatrix, L::AbstractMatrix;
         for j in 1:noIt_KSVD
             W = lasso_sparse(y,D,Threshold)
             D = approximate_ksvd(y, D, W)
+        end
+    next!(p)
+    end
+    return(D)
+end
+
+function dictionary_learning_1(D::AbstractMatrix, L::AbstractMatrix; 
+        noIt_Sub::Int = default_It_Sub, 
+        noIt_KSVD::Int = default_It_KSVD,
+        cd_tolerance = default_It_KSVD)
+    
+    default_It_Sub = 10
+    default_It_KSVD = 1
+    default_cd_tolerance = 1e-6
+    
+    p = Progress(noIt_Sub, 1, "Optimizing Dictionary...")
+    for i in 1:noIt_Sub
+        y = subX(L)
+        for j in 1:noIt_KSVD
+            W = lasso(y,D,cd_tolerance)
+            D = approximate_ksvd(y, D, W)
+        end
+    next!(p)
+    end
+    return(D)
+end
+
+
+function approx_nn_dictionary_learning(D::AbstractMatrix, L::AbstractMatrix; 
+        noIt_Sub::Int = default_It_Sub, 
+        noIt_KSVD::Int = default_It_KSVD)
+    
+    default_It_Sub = 10
+    default_It_KSVD = 1
+    
+    p = Progress(noIt_Sub, 1, "Optimizing Dictionary...")
+    for i in 1:noIt_Sub
+        y = subX(L)
+        for j in 1:noIt_KSVD
+            W = nnls(y,D)
+            D = nn_approximate_ksvd(y, D, W)
+        end
+    next!(p)
+    end
+    return(D)
+end
+
+
+function full_nn_dictionary_learning(D::AbstractMatrix, L::AbstractMatrix; 
+        noIt_Sub::Int = default_It_Sub, 
+        noIt_KSVD::Int = default_It_KSVD)
+    
+    default_It_Sub = 10
+    default_It_KSVD = 1
+    
+    p = Progress(noIt_Sub, 1, "Optimizing Dictionary...")
+    for i in 1:noIt_Sub
+        y = subX(L)
+        for j in 1:noIt_KSVD
+            W = nnls(y,D)
+            D = nn_full_ksvd(y, D, W)
         end
     next!(p)
     end
@@ -92,7 +232,7 @@ function INV_LLS(a)
     pixels = size(a,1)
     INV_LLS =zeros(0) #empty array
     for i in 1:size(a,1)
-        df = [(100^((val-0.5)^2)-1)*10 for val in a[i,:]]
+        df = [(exp(exp(val) - 1) - 1)^2 - 1 for val in a[i,:]]
         append!(INV_LLS,df)
     end
     return reshape(INV_LLS,channels,pixels)
@@ -126,17 +266,17 @@ function Savitsky_Golay(d::AbstractMatrix;
 end
 
 function SNIP(d::AbstractMatrix)
-    M = 30 # distance of M
-    iter = 5; # number of iterations  
+    M = 36 # distance of M
+    iter = 15; # number of iterations  
 
-    Mb = 15 # distance of M
-    iterb = 3
+    Mb = 14 # distance of M
+    iterb = 5
 
-    Mc = 8 # distance of M
-    iterc = 2
+    Mc = 7 # distance of M
+    iterc = 4
 
-    Md = 2 # distance of M
-    iterd = 1
+    Md = 3 # distance of M
+    iterd = 2
     
     for j in 1:iter, i in M+1:4096-M
             M1 = d[:,i-M]
