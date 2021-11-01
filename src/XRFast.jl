@@ -115,17 +115,18 @@ function nn_full_ksvd(Y::AbstractMatrix, D::AbstractMatrix, W::AbstractMatrix)
         #@. U[isnan(U)] = 0
         D[:,k] = U[:,1]
         D[:,k] = [x > 0 ? x : 0 for x in D[:,k]]
-        W[k,I] = V'*S
+        W[k,I] = V*S
         R[:,I] = Ri - D[:,k]*W[k,I']
     end
     return D
 end
 
-function nnls(subx, D)
+function nnls(subx, D, Lambda)
     w = zeros(0)
     for i in 1:size(subx,2)
         q = subx[:,i]
         J = nonneg_lsq(D,subx[:,i];alg=:nnls)
+        J = [x > quantile!(J[:,1], Lambda) ? x : 0 for x in J]
         append!(w,J[:,size(J,2)])
     end
     W = reshape(w,size(D,2),size(subx,2))
@@ -178,17 +179,19 @@ end
 
 function approx_nn_dictionary_learning(D::AbstractMatrix, L::AbstractMatrix; 
         noIt_Sub::Int = default_It_Sub, 
-        noIt_KSVD::Int = default_It_KSVD)
+        noIt_KSVD::Int = 1,
+        Lambda::Float64= default_Th)
     
     default_It_Sub = 10
     default_It_KSVD = 1
+    default_Th = 0.75
     
     p = Progress(noIt_Sub, 1, "Optimizing Dictionary...")
     for i in 1:noIt_Sub
         y = subX(L)
         for j in 1:noIt_KSVD
-            W = nnls(y,D)
-            D = nn_approximate_ksvd(y, D, W)
+            W = nnls(y,D,Lambda)
+            D = nn_approx_ksvd(y, D, W)
         end
     next!(p)
     end
@@ -207,7 +210,7 @@ function full_nn_dictionary_learning(D::AbstractMatrix, L::AbstractMatrix;
     for i in 1:noIt_Sub
         y = subX(L)
         for j in 1:noIt_KSVD
-            W = nnls(y,D)
+            W = nnls(y,D,Lambda)
             D = nn_full_ksvd(y, D, W)
         end
     next!(p)
