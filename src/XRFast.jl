@@ -192,7 +192,7 @@ function approx_nn_dictionary_learning(D::AbstractMatrix, L::AbstractMatrix;
         y = subX(L)
         for j in 1:noIt_KSVD
             W = nnls(y,D,Lambda)
-            D = nn_approx_ksvd(y, D, W)
+            D = nn_approximate_ksvd(y, D, W)
         end
     next!(p)
     end
