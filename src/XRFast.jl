@@ -8,6 +8,7 @@ using DSP
 using ProgressMeter
 using SparseArrays
 using NonNegLeastSquares
+using Statistics
 
 #subX function randomly selects 5% of spectra from original data cube and saves as a new array
 #Spectral dimensions in y (dim 1), pixels in x (dim 2)
