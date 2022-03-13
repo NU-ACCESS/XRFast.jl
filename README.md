@@ -29,7 +29,7 @@ Marc Walton (5)<br>
 
 ***
 
-The aim of this repository is to give full access to a Julia package called XRFast designed for dictionary learning of XRF signals, a Jupyter notebook showing how to use this package, a test dataset, and instructions allowing for the idnetification of spectral endmembers and their spatial distribution across a 2D work of art.
+The aim of this repository is to give full access to a Julia package called XRFast designed for dictionary learning and sparse representation of XRF signals using KSVD. Also included is a Jupyter notebook showing how to use this package, a test dataset, and instructions allowing for the identification of spectral endmembers and their spatial distribution across a 2D work of art.
 
 The intention is that the presented research can be fully replicated and implemented by other scientists in their host institutions. 
 
