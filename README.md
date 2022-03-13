@@ -5,7 +5,7 @@
 This repository is a companion to the following paper:
 
 **XRFast a New Software Package for Processing of MA-XRF Datasets using Machine Leaning** 
-> *Journal here*,  <br>
+> *Journal where the paper will be pubished*,  <br>
 
 Marc Vermeulen (1), 
 Alicia McGeachy (1), 
@@ -29,7 +29,7 @@ Marc Walton (5)<br>
 
 ***
 
-The aim of this repository is to give full access to the Jupyter notebook, associated macros, test dataset, and instructions allowing the reduction and visualization of visible spectral images of works of art as well as pigments identification and their spatial distribution using UMAP, 2D histogram peak finding algorithm and non-negative least square fitting to the original data. 
+The aim of this repository is to give full access to a Julia package called XRFast designed for dictionary learning of XRF signals, a Jupyter notebook showing how to use this package, a test dataset, and instructions allowing for the idnetification of spectral endmembers and their spatial distribution across a 2D work of art.
 
 The intention is that the presented research can be fully replicated and implemented by other scientists in their host institutions. 
 
