@@ -7,23 +7,22 @@ This repository is a companion to the following paper:
 **XRFast a New Software Package for Processing of MA-XRF Datasets using Machine Leaning** 
 > *Journal here*,  <br>
 
-Marc Vermeulen1, 
-Alicia McGeachy1, 
-Bingjie Xu1, 
-Henry Chopp2,
-Aggelos Kataggelos2, 
-Rebecca Meyers3, 
-Matthias Alfeld4, 
-Marc Walton5,a,*
+Marc Vermeulen(1), 
+Alicia McGeachy(1), 
+Bingjie Xu(1), 
+Henry Chopp(2),
+Aggelos Kataggelos(2), 
+Rebecca Meyers(3), 
+Matthias Alfeld(4), 
+Marc Walton(5)<br>
 
 
-1 Northwestern University / Art Institute of Chicago Center for Scientific Studies in the Arts (NU-ACCESS), 2145 Sheridan Road, Evanston, IL, United States
-2 Department of ECE, Northwestern University, Evanston, IL, United States
-3 National Museum of Mexican Art, 1852 W. 19th street, Chicago, IL, United States
-4 Delft University of Technology, Department of Materials Science and Engineering (MSE), 2628 CN Delft, Netherlands.
-5 M+, 38 Museum Drive, West Kowloon Cultural District, Hong Kong
-a formerly: NU-ACCESS
-* Corresponding author: marc.walton@mplus.org.hk<br>
+>1 Northwestern University / Art Institute of Chicago Center for Scientific Studies in the Arts (NU-ACCESS), 2145 Sheridan Road, Evanston, IL, United States
+>2 Department of ECE, Northwestern University, Evanston, IL, United States
+>3 National Museum of Mexican Art, 1852 W. 19th street, Chicago, IL, United States
+>4 Delft University of Technology, Department of Materials Science and Engineering (MSE), 2628 CN Delft, Netherlands.
+>5 M+, 38 Museum Drive, West Kowloon Cultural District, Hong Kong
+
 
 **Abstract:** *To be put here*
 
