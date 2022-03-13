@@ -7,14 +7,14 @@ This repository is a companion to the following paper:
 **XRFast a New Software Package for Processing of MA-XRF Datasets using Machine Leaning** 
 > *Journal here*,  <br>
 
-Marc Vermeulen(1), 
-Alicia McGeachy(1), 
-Bingjie Xu(1), 
-Henry Chopp(2),
-Aggelos Kataggelos(2), 
-Rebecca Meyers(3), 
-Matthias Alfeld(4), 
-Marc Walton(5)<br>
+Marc Vermeulen (1), 
+Alicia McGeachy (1), 
+Bingjie Xu (1), 
+Henry Chopp (2),
+Aggelos Kataggelos (2), 
+Rebecca Meyers (3), 
+Matthias Alfeld (4), 
+Marc Walton (5)<br>
 
 
 > 1. Northwestern University / Art Institute of Chicago Center for Scientific Studies in the Arts (NU-ACCESS), 2145 Sheridan Road, Evanston, IL, United States
