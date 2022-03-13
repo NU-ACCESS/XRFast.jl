@@ -1,4 +1,4 @@
-#XRFast Package for Dictionary learning of MA-XRF Images <br>
+# XRFast Package for Dictionary learning of MA-XRF Images <br>
 
 ***
 
