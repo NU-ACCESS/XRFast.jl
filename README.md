@@ -23,7 +23,7 @@ Marc Walton (5)<br>
 > 4. Delft University of Technology, Department of Materials Science and Engineering (MSE), 2628 CN Delft, Netherlands.
 > 5. M+ Museum, 38 Museum Drive, West Kowloon Cultural District, Hong Kong*
 
-*corresponding author: Marc.walton@mplus.org.hk
+*corresponding author: marc.walton@mplus.org.hk
 
 **Abstract:** *To be put here*
 
