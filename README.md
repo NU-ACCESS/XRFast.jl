@@ -33,7 +33,24 @@ The aim of this repository is to give full access to a Julia package called XRFa
 
 The intention is that the presented research can be fully replicated and implemented by other scientists in their host institutions. 
 
-Efforts have been made to the best of the authors' abilities to make the data processing procedures accessible and reusable in support of the growing Open Science movement. 
+Efforts have been made to the best of the authors' abilities to make the data processing procedures accessible and reusable in support of the growing Open Science movement. <br>
+
+## 1. Overview of contents
+#### 1.1. Jupyter notebook (XRF Dictionary learning)
+Most of the data treatment is undertaken in the Jupyter notebook. To successfully produce the final text figures, cells within the notebook should be run sequentially. Further pertinent instructions are provided throughout the notebook.
+
+Required versions: [Jupyter notebook](https://jupyter.org/)>=5.5, [Julia](https://julialang.org/downloads/)>=1.5 
+
+#### 1.2. Install requirements
+All packages required to run the notebook can be install within the Jupyter notebbok or using the Julia command prompt. <br>
+To install a package, use the following lines: <br>
+> using Pkg <br>
+> Pkg.add("Package Name") <br>
+
+#### 1.3. Test dataset
+The XRF data cube from a selected area of an untitled 18th century Mexican painting belonging to the permanent collection of the National Museum of Mexican Art (Chicago, IL, USA) used in the article is [provided](https://.../) as a test dataset. <br>
+
+
 
 
 [![Build Status](https://travis-ci.com/NU-ACCESS/XRFast2.jl.svg?branch=master)](https://travis-ci.com/NU-ACCESS/XRFast2.jl)
