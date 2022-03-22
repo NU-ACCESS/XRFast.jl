@@ -47,6 +47,9 @@ To install a package, use the following lines: <br>
 > using Pkg <br>
 > Pkg.add("Package Name") <br>
 
+To install the <b>XRFast package</b>, use the following import line: 
+>Pkg.add(url="https://github.com/NU-ACCESS/XRFast.jl") <br>
+
 #### 1.3. Test dataset
 The XRF data cube from a selected area of an untitled 18th century Mexican painting belonging to the permanent collection of the National Museum of Mexican Art (Chicago, IL, USA) used in the article is [provided](https://.../) as a test dataset. <br>
 
@@ -55,26 +58,28 @@ Markdown cells provide the instructions and expected output of the subsequent ce
 
 ## 3. Endmember distribution maps and spectra
 Endmember distribution maps and spectra are exported as a .csv files using comma as delimiter. <br>
-> <b>Endmember spectra</b> can be imported in Excel or other graphing applications for further data processing. 
->A stack of <b>endmember distribution maps</b> can be reated in ImageJ (Fiji) by following the steps below (also found in the Jupyter Notebook):
->   <li><b>Import data</b>: File>>Import>>text Image...<br>
->    <i>Select the desired .csv file</i></li>
->    <li><b>Create a stack</b>: Image>>Stacks>>Tools>>Montage to Stack...<br>
->    <ins>Columns</ins>: last number of the filename, before the .csv <br>
->    <ins>Rows</ins>: 1 <br>
->    <ins>Border width</ins>: 0</li>
->    <li><b>Transform compressed stack into stack of images</b>: Image>>Stacks>>Reslice[/]... (or Shortcut Stk>>Reslice[/]...) on the <i>Stack</i> window created</li>
->    <ins>Output spacing (pixels)</ins>: 1.000 <br>
->    <ins>Start at</ins>: Top <br>
->    <ins>Avoid interoplation</ins> should be checked <br>
->    <i>Flip vertically</i> and <i>Rotate 90 degrees</i> can be checked or unchecked depending on the orientation of the original data. 
->    <li><b>Save as a set of individual images</b>: File>>Save As>>Image Sequence... <br>
->     <ins>Dir.</ins>: Select the folder where images will be saved <br>
->        <ins>Format</ins>: select the desired format (TIFF is the default option) <br>
->        <ins>Name</ins>: Indicate the root name of the images + EM (for endmember, recommended)<br>
->        <ins>Start at</ins>: Indicate 1 (this correspond to the first endmember, which is the first slice)<br>
->        <ins>Digits (1-8)</ins>: we recommend 2. This will save each image as EM01, EM02, [...] EM20).
-></ol>
+
+<li><b>Endmember spectra</b> can be imported in Excel or other graphing applications for further data processing. <br>
+<li>A stack of <b>endmember distribution maps</b> can be reated in ImageJ (Fiji) by following the steps below (also found in the Jupyter Notebook): </ol><br>
+
+<ol>
+<li><b>Import data</b>: File>>Import>>text Image...<br>
+<i>Select the desired .csv file</i></li>
+<li><b>Create a stack</b>: Image>>Stacks>>Tools>>Montage to Stack...<br>
+<ins>Columns</ins>: last number of the filename, before the .csv <br>
+<ins>Rows</ins>: 1 <br>
+<ins>Border width</ins>: 0</li>
+<li><b>Transform compressed stack into stack of images</b>: Image>>Stacks>>Reslice[/]... (or Shortcut Stk>>Reslice[/]...) on the <i>Stack</i> window created</li>
+<ins>Output spacing (pixels)</ins>: 1.000 <br>
+<ins>Start at</ins>: Top <br>
+<ins>Avoid interoplation</ins> should be checked <br>
+<i>Flip vertically</i> and <i>Rotate 90 degrees</i> can be checked or unchecked depending on the orientation of the original data. 
+<li><b>Save as a set of individual images</b>: File>>Save As>>Image Sequence... <br>
+<ins>Dir.</ins>: Select the folder where images will be saved <br>
+<ins>Format</ins>: select the desired format (TIFF is the default option) <br>
+<ins>Name</ins>: Indicate the root name of the images + EM (for endmember, recommended)<br>
+<ins>Start at</ins>: Indicate 1 (this correspond to the first endmember, which is the first slice)<br>
+<ins>Digits (1-8)</ins>: we recommend 2. This will save each image as EM01, EM02, [...] EM20).
 
 ***
 
