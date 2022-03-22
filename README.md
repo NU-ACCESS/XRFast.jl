@@ -76,6 +76,8 @@ Endmember distribution maps and spectra are exported as a .csv files using comma
 >        <ins>Digits (1-8)</ins>: we recommend 2. This will save each image as EM01, EM02, [...] EM20).
 ></ol>
 
+***
+
 [![Build Status](https://travis-ci.com/NU-ACCESS/XRFast2.jl.svg?branch=master)](https://travis-ci.com/NU-ACCESS/XRFast2.jl)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/NU-ACCESS/XRFast2.jl?svg=true)](https://ci.appveyor.com/project/NU-ACCESS/XRFast2-jl)
 [![Codecov](https://codecov.io/gh/NU-ACCESS/XRFast2.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/NU-ACCESS/XRFast2.jl)
