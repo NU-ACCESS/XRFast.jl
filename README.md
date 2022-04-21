@@ -60,7 +60,7 @@ Markdown cells provide the instructions and expected output of the subsequent ce
 Endmember distribution maps and spectra are exported as a .csv files using comma as delimiter. <br>
 
 <li><b>Endmember spectra</b> can be imported in Excel or other graphing applications for further data processing. <br>
-<li>A stack of <b>endmember distribution maps</b> can be reated in ImageJ (Fiji) by following the steps below (also found in the Jupyter Notebook): </ol><br>
+<li>A stack of <b>endmember distribution maps</b> can be created in ImageJ (Fiji) by following the steps below (also found in the Jupyter Notebook): </ol><br>
 
 <ol>
 <li><b>Import data</b>: File>>Import>>text Image...<br>
