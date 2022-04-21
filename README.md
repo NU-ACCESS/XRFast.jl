@@ -42,7 +42,7 @@ Most of the data treatment is undertaken in the Jupyter notebook. To successfull
 Required versions: [Jupyter notebook](https://jupyter.org/)>=5.5, [Julia](https://julialang.org/downloads/)>=1.5 
 
 #### 1.2. Install requirements
-All packages required to run the notebook can be install within the Jupyter notebbok or using the Julia command prompt. <br>
+All packages required to run the notebook can be installed within the Jupyter notebbok or using the Julia command prompt. <br>
 To install a package, use the following lines: <br>
 > using Pkg <br>
 > Pkg.add("Package Name") <br>
